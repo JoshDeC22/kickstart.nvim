@@ -380,6 +380,32 @@ require('lazy').setup({
       end,
     },
 
+    -- Terminal plugin
+    {
+      'akinsho/toggleterm.nvim',
+      version = '*',
+      config = function()
+        require('toggleterm').setup {
+          size = 15,
+          open_mapping = [[<C-\>]],
+          shade_filetypes = {},
+          shade_terminals = true,
+          shading_factor = 2,
+          start_in_insert = true,
+          persist_size = true,
+          direction = 'float', -- Options: 'vertical', 'horizontal', 'tab', 'float'
+          close_on_exit = true,
+          shell = vim.o.shell,
+        }
+
+        -- Keymaps for different terminal modes
+        vim.keymap.set('n', '<leader>tt', ':ToggleTerm<CR>', { desc = 'Open the terminal', noremap = true, silent = true }) -- Toggle terminal
+        vim.keymap.set('n', '<leader>tth', ':ToggleTerm direction=horizontal<CR>', { desc = 'Open the terminal in horizontal mode' })
+        vim.keymap.set('n', '<leader>ttv', ':ToggleTerm direction=vertical<CR>', { desc = 'Open the terminal in vertical mode' })
+        vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true }) -- Exit terminal mode
+      end,
+    },
+
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
       -- it can fuzzy find! It's more than just a "file finder", it can search
