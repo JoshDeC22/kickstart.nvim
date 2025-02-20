@@ -386,7 +386,7 @@ require('lazy').setup({
       version = '*',
       config = function()
         require('toggleterm').setup {
-          size = 15,
+          size = 10,
           open_mapping = [[<C-\>]],
           shade_filetypes = {},
           shade_terminals = true,
