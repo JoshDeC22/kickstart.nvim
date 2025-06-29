@@ -185,12 +185,24 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- More terminal keybinds
+vim.keymap.set('n', '<space>bs', function()
+  vim.cmd.vnew()
+  vim.cmd.term()
+  vim.cmd.wincmd 'J'
+  vim.api.nvim_win_set_height(0, 10)
+  vim.cmd ':Neotree<Enter>'
+end)
+
 vim.keymap.set('n', '<space>bt', function()
   vim.cmd.vnew()
   vim.cmd.term()
   vim.cmd.wincmd 'J'
   vim.api.nvim_win_set_height(0, 10)
 end)
+
+-- Tab management keymaps
+vim.keymap.set('n', '<F3>', ':tabnext<Enter>', { desc = 'Move to next tab' })
+vim.keymap.set('n', '<F2>', ':tabprevious<Enter>', { desc = 'Move to previous tab' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
