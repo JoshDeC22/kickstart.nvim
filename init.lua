@@ -214,8 +214,10 @@ vim.keymap.set('n', '<F3>', ':tabnext<Enter>', { desc = 'Move to next tab' })
 vim.keymap.set('n', '<F2>', ':tabprevious<Enter>', { desc = 'Move to previous tab' })
 
 -- Buffer navigation keymaps
-vim.keymap.set('n', '<Tab>', ':bn<Enter>', { desc = 'Move to next buffer' })
-vim.keymap.set('n', '<S-Tab>', ':bp<Enter>', { desc = 'Move to previous buffer' })
+local buffers = require 'utils.buffers'
+vim.keymap.set('n', '<Tab>', buffers.next_buffer, { desc = 'Move to next buffer', noremap = true, silent = true })
+vim.keymap.set('n', '<S-Tab>', buffers.prev_buffer, { desc = 'Move to previous buffer', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>x', ':bd<Enter>', { desc = 'Delete current buffer' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -253,6 +255,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.hl.on_yank()
   end,
+})
+
+local term_manager = require 'utils.term'
+-- This autocommand helps keep the terminal in the correct spot
+vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
+  desc = 'Ensure terminal stays in the correct spot',
+  callback = term_manager.open_term,
+})
+
+-- Auto command to help buffer switching
+vim.api.nvim_create_autocmd('BufDelete', {
+  desc = 'Auto switch tabs when current buffer is deleted',
+  callback = term_manager.delete_buf,
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
