@@ -84,11 +84,20 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- Set necessary bufferline options
+vim.opt.termguicolors = true
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- Set tab options
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
@@ -203,6 +212,10 @@ end)
 -- Tab management keymaps
 vim.keymap.set('n', '<F3>', ':tabnext<Enter>', { desc = 'Move to next tab' })
 vim.keymap.set('n', '<F2>', ':tabprevious<Enter>', { desc = 'Move to previous tab' })
+
+-- Buffer navigation keymaps
+vim.keymap.set('n', '<Tab>', ':bn<Enter>', { desc = 'Move to next buffer' })
+vim.keymap.set('n', '<S-Tab>', ':bp<Enter>', { desc = 'Move to previous buffer' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -1002,7 +1015,7 @@ require('lazy').setup({
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
+  require 'custom.plugins.bufferline',
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
