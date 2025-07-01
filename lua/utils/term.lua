@@ -8,7 +8,7 @@ local function create_term()
     local name = buf.name
     return ft ~= 'neo-tree' and ft ~= 'terminal' and ft ~= 'toggleterm' and not name:match '^term://'
   end, buf_list)
-  if #file_bufs == 1 then
+  if #file_bufs >= 1 then
     for _, win in ipairs(vim.api.nvim_list_wins()) do
       local buf = vim.api.nvim_win_get_buf(win)
       local ft = vim.bo[buf].filetype
