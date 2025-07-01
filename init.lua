@@ -202,11 +202,9 @@ vim.keymap.set('n', '<space>bs', function()
   vim.cmd ':Neotree<Enter>'
 end)
 
+local term_manager = require 'utils.term'
 vim.keymap.set('n', '<space>bt', function()
-  vim.cmd.vnew()
-  vim.cmd.term()
-  vim.cmd.wincmd 'J'
-  vim.api.nvim_win_set_height(0, 10)
+  term_manager.open_term()
 end)
 
 -- Tab management keymaps
@@ -257,7 +255,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-local term_manager = require 'utils.term'
 -- This autocommand helps keep the terminal in the correct spot
 vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
   desc = 'Ensure terminal stays in the correct spot',
